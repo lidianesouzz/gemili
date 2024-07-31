@@ -1,0 +1,45 @@
+<html>
+
+<body>
+    <form>
+        <textarea id="prompusuario" > </textarea>
+        <button type="button" onclick="run()" value="">Enviar</button>
+
+        <textarea id="resposta" > </textarea>
+
+    </form>
+</body>
+
+</html>
+<script type="importmap">
+    {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+</script>
+
+<script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // Fetch your API_KEY
+    const API_KEY = "AIzaSyBDdftldfA5Gf3V1CJOl0WPGIgLthf7yjc";
+
+    // Access your API key (see "Set up your API key" above)
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    async function run() {
+        const prompt = "gemini, vc e um medico"
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        document.getElementById("resposta").value = text;
+        console.log(text);
+    }
+
+    run();
+</script>

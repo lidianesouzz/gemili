@@ -76,7 +76,7 @@
 
 <body>
     <form>
-        <textarea id="prompusuario" rows="4" placeholder="Digite sua pergunta..."></textarea>
+        <textarea id="promptusuario" rows="4" placeholder="Digite sua pergunta..."></textarea>
         <button type="button" id="botaoenvio">Enviar</button>
         <textarea id="resposta" rows="4" readonly placeholder="Resposta aparecerá aqui..."></textarea>
 
@@ -109,10 +109,14 @@
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+    var promptusuario=document.getElementById("promptusuario").value;
+
     async function run() {
         const prompt = "gemini, diga oi, vc e um medico e voce deve indicar as pessoas todas as ideias sobre medicina basica, anatomia, Biologia celular e molecular,Embriologia, funcionalidades dos remedios e patologia."
 
-        const result = await model.generateContent(prompt);
+        var promptcompleto=prompt+promptusuario;
+
+        const result = await model.generateContent(promptcompleto);
         const response = await result.response;
         const text = response.text();
 
